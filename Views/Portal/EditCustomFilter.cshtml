@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "EditCustomFilter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+
+    @*-------------------------------- START Text Editor TextBox Script ------------------------------*@
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    @*-------------------------------- END Text Editor TextBox Script --------------------------------*@
+
+    <script>
+        tinymce.init({
+            //selector: 'textarea.tinyMceDisclaimer',
+            selector: 'textarea',
+
+            force_br_newlines: false,
+            force_p_newlines: false,
+            forced_root_block: '',
+            height: 100,
+            //menubar:false,
+            plugins: [
+                'code advlist autolink lists link image charmap hr anchor pagebreak',
+                'searchreplace visualblocks visualchars',
+                'insertdatetime media nonbreaking contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            //toolbar: 'code visualchars | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
+        });
+
+    </script>
+
+</head>
+
+
+
+<h2>Edit Custom Filter</h2>
+
+<div class="col-sm-6" style="padding-top:3.5em">
+
+
+    <div class="col-sm-6">
+        <div class="col-sm-12">@Html.Label("Name") @Html.TextBox("name")</div>
+        <div class="col-sm-12" style="padding-bottom:10px">&nbsp;&nbsp;&nbsp;&nbsp;@Html.Label("Tag") @Html.TextBox("Tag")</div>
+    </div>
+    <div class="col-sm-6" style="padding-bottom:50px">
+
+        <div class="col-sm-12">
+            Filter Type    <div class="col-sm-12">
+                @Html.RadioButton("custradio", "Flexible") Flexible
+            </div>
+            <div class="col-sm-12">
+                @Html.RadioButton("custradio", "Strict") Strict
+            </div>
+            <div class="col-sm-12">
+                @Html.RadioButton("custradio", "Tag") Tag
+            </div>
+        </div>
+    </div>
+
+
+    @Html.Label("Short Description")@Html.TextArea("ShortDesc")
+
+
+
+</div>
+
+
+<div class="col-sm-6">
+    <H2>Icon</H2>
+
+
+    <div class="custom-file col-sm-6">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+    </div>
+    <div class="col-sm-6">
+        <input type="color" id="mainColor" name="mainColor" value="#8abbff">
+        <label for="mainColor">On Color</label>
+
+        <input type="color" id="colorHover" name="colorHover" value="#8aa9ff">
+        <label for="colorHover">Off Color</label>
+    </div>
+
+    <h4 class="col-sm-12" style="text-align:center">Definition Settings</h4>
+    <div class="col-sm-6">
+        <div class="col-sm-12">@Html.CheckBox("publish")@Html.Label("Publish")</div>
+        <div class="col-sm-12">@Html.CheckBox("ShowDef")@Html.Label("Show Definition")</div>
+    </div>
+    <div class="col-sm-6">
+        <div class="col-sm-12">@Html.CheckBox("showOnIndex")@Html.Label("Show Icon on Index Page")</div>
+        <div class="col-sm-12">@Html.CheckBox("showOnMenu")@Html.Label("Show Icon on Menu Page")</div>
+    </div>
+
+    <div style="text-align:center"><h4>Definition</h4></div>
+
+    @Html.TextArea("definition")
+
+</div>

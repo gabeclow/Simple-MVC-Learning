@@ -1,0 +1,151 @@
+﻿@model gclowPortal.Models.Portal
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2 style="text-align:center">Index Page</h2>*@
+<head>
+
+    @*-------------------------------- START Text Editor TextBox Script ------------------------------*@
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    @*-------------------------------- END Text Editor TextBox Script --------------------------------*@
+
+    <script>
+        tinymce.init({
+            //selector: 'textarea.tinyMceDisclaimer',
+            selector: 'textarea',
+
+            force_br_newlines: false,
+            force_p_newlines: false,
+            forced_root_block: '',
+            height: 100,
+            //menubar:false,
+            plugins: [
+                'code advlist autolink lists link image charmap hr anchor pagebreak',
+                'searchreplace visualblocks visualchars',
+                'insertdatetime media nonbreaking contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            //toolbar: 'code visualchars | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
+        });
+
+    </script>
+
+</head>
+@*<h1>@Model.Name</h1>*@
+<style>
+    .border {
+        vertical-align: top;
+        border-radius: 25px;
+        padding-top: 9px;
+        padding-bottom: 21px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        /*color: #941739;*/
+        margin-left: 10px;
+        margin-top: 28px;
+        text-align: center;
+    }
+
+    .spaceBelow {
+        padding-bottom: 10px;
+    }
+</style>
+
+@*----------------- Nutrition Filters ---------------------------------- Nutrition Filters ---------------------------------- Nutrition Filters ----------------- *@
+
+<h2 class="col-sm-12">Nutrition Filters</h2>
+
+@*Calories*@
+@foreach (string i in ViewBag.Allergens)
+{
+<div class="col-sm-5 border">
+    @Html.CheckBoxFor(m => m.calChecked, new { @class = "form-control", @style = "width:30px; float:left" }) @Html.Label(i)
+    <div class="col-sm-12"><p></p></div>
+    <div class="col-sm-5"> <label>Min</label><span class="col-sm-9">@Html.TextBoxFor(m => m.calMin, new { @class = "form-control" })</span></div>
+    <div class="col-sm-5"><span class="col-sm-9">@Html.TextBoxFor(m => m.calMax, new { @class = "form-control" }) </span><label>Max</label></div>
+</div>
+}
+
+
+
+@*----------------- Allergen Filters ---------------------------------- Allergen Filters ---------------------------------- Allergen Filters -----------------*@
+
+<div class="col-sm-12"> <h3> Allergen Filters</h3></div>
+@*@foreach (string i in ViewBag.Allergens)
+{
+    <h3>Allergen Filters</h3>
+    @MakeDivs(i);
+}
+@foreach (string i in ViewBag.CrossContact)
+{
+    <h3>Allergen Cross Contact Filters</h3>
+    @MakeDivs(i);
+}
+@foreach (string i in ViewBag.Veggie)
+{
+    <h3>Veggie Filters</h3>
+    @MakeDivs(i);
+}
+@foreach (string i in ViewBag.PWC)
+{
+    <h3>Personalized Wellness Choices Filters</h3>
+    @MakeDivs(i);
+}*@
+
+ @foreach(string i in ViewBag.Allergens){
+    string str = i;
+    str = str.Replace(" ", String.Empty);
+    str = str.Replace("/", String.Empty);
+
+<div class="col-sm-5 border">
+    @Html.CheckBox("glutenFree")@Html.Label((string)i)
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@str">icon & definition</button>
+
+    <div id="@str" class="collapse">
+
+        <div class="firstgroup" style="padding-top:2em">
+            <div class="col-sm-12" style="background-color:#f2f2f2; padding-top:1em">
+                <input type="color" id="mainColor" name="mainColor" value="#8abbff">
+                <label for="mainColor">Color</label>
+
+                <input type="color" id="colorHover" name="colorHover" value="#8aa9ff">
+                <label for="colorHover">Hover Color</label>
+            </div>
+            <div class="col-sm-12" style="float:left; background-color:#f2f2f2">
+                <div class="col-sm-12">@Html.Label("Tag Name", null, new { @style = "float:left;" }) &nbsp;@Html.TextBox("tagNm", null, new { @style = "float:right;" })</div>
+                <div class="col-sm-12">@Html.Label("Custom Name", null, new { @style = "float:left;" }) &nbsp; @Html.TextBox("cstname", null, new { @style = "float:right;" })</div>
+            </div>
+        </div>
+
+        <div class="col-sm-12" style="padding-bottom:1em; background-color:#f7f7f7">
+            <h3>Definition</h3>
+            <div class="col-sm-6">
+                @Html.CheckBox("Published")
+                @Html.Label("Published")
+            </div>
+            <div class="col-sm-6">
+                @Html.CheckBox("Custom Definition")
+                @Html.Label("Custom Definition")
+            </div>
+            <div class="col-sm-12">
+                @Html.TextArea("text")
+            </div>
+        </div>
+
+        <div class="col-sm-12" style="background-color:#f2f2f2">
+            <div class="col-sm-12"><h3>Icon</h3></div>
+
+            <div class="col-sm-6 checkbox checkbox-info">
+                @Html.CheckBox("showOnMenu") @Html.Label("Show Icon on Menu")
+                @Html.CheckBox("showOnIndex") @Html.Label("Show Icon on Index")
+            </div>
+            <div class="custom-file col-sm-6" style="padding-top:1.5em">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+        
